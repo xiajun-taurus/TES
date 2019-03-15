@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword"
+        content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <link rel="shortcut icon" href="img/favicon.html">
+
+  <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reset.css" rel="stylesheet">
+  <!--external css-->
+  <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+  <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet"
+        type="text/css" media="screen"/>
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<section id="container" class="">
+  <!--header start-->
+  <header class="header white-bg">
+    <div class="sidebar-toggle-box">
+      <div data-original-title="Toggle Navigation" data-placement="right"
+           class="icon-reorder tooltips"></div>
+    </div>
+    <!--logo start-->
+    <a href="#" class="logo">教师评教系统</span></a>
+    <!--logo end-->
+
+
+  </header>
+  <!--header end-->
+  <!--sidebar start-->
+  <aside th:if="${session.userInfo.role} eq 0">
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li>
+          <a class="" th:href="@{~/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu active">
+          <a href="javascript:;" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li class="active"><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+            <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_teacher}">
+            <i class="icon-check"></i>
+            <span>教师信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_major}">
+            <i class="icon-check"></i>
+            <span>专业信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_class}">
+            <i class="icon-check"></i>
+            <span>班级信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_student}">
+            <i class="icon-check"></i>
+            <span>学生信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_course}">
+            <i class="icon-check"></i>
+            <span>课程管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_xuanke}">
+            <i class="icon-check"></i>
+            <span>选课管理</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a class="" href="javascript:void(0)">
+            <i class="icon-check"></i>
+            <span>题库管理</span>
+          </a>
+          <ul class="sub">
+            <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>
+            <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/result_charts}">
+            <i class="icon-check"></i>
+            <span>统计分析</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/login}">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <aside th:if="${session.userInfo.role} ne 0">
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li>
+          <a class="" th:href="@{~/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu active">
+          <a href="javascript:void(0);" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li class="active"><a class="" href="profile-edit">编辑个人资料</a></li>
+            <li><a class="" href="security-edit">安全设置</a></li>
+          </ul>
+        </li>
+        <li th:if="${session.userInfo.role} eq 2">
+          <a class="" th:href="@{~/reading_papers}">
+            <i class="icon-check"></i>
+            <span>教师评教</span>
+          </a>
+        </li>
+        <li th:if="${session.userInfo.role} eq 1">
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" href="/login">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <!--state overview start-->
+      <aside class="profile-nav col-lg-12">
+        <section class="panel">
+          <div class="user-heading round">
+            <a href="#">
+              <img src="img/profile-avatar.jpg" alt="">
+            </a>
+            <h1 class="trueName" th:text="${userInf.trueName}">Jonathan Smith</h1>
+            <p class="email" th:text="${userInf.EMail}">未设置</p>
+          </div>
+
+          <div class="panel-body bio-graph-info">
+            <h1>我的信息</h1>
+            <form class="form-horizontal"  role="form">
+              <div class="form-group">
+                <label class="col-lg-2 control-label">个性签名</label>
+                <div class="col-lg-6">
+                  <input type="text" id="signature"  class="form-control" th:field="${userInf.signature}"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">用户名</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="userName" placeholder=" " th:field="${userInf.userName}" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">姓名</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="trueName" th:field="${userInf.trueName}">
+                </div>
+              </div>
+              <div class="form-group" th:if="${userInf.className} ne null">
+                <label class="col-lg-2 control-label">班级</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="className" placeholder=" " th:field="${userInf.className}" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">学工号</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="schoolNo" placeholder=" " th:field="${userInf.schoolNo}" readonly>
+                </div>
+              </div>
+              <div class="form-group" th:if="${userInf.majorName} ne null">
+                <label class="col-lg-2 control-label">专业</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="major" placeholder=" " th:field="${userInf.majorName}" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="email" placeholder=" " th:field="${userInf.EMail}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">手机</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" id="phone" th:field="${userInf.phone}" placeholder=" ">
+                </div>
+              </div>
+              <!--<div class="form-group">-->
+                <!--<label class="col-lg-2 control-label">更换头像</label>-->
+                <!--<div class="col-lg-6">-->
+                  <!--<input type="file" class="file-pos" id="exampleInputFile">-->
+                <!--</div>-->
+              <!--</div>-->
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <a class="btn btn-success" th:data-id="${userInf.oid}" th:onclick="save(this.getAttribute('data-id'))">保存</a>
+                  <button type="button" class="btn btn-default">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </aside>
+
+
+    </section>
+  </section>
+  <!--main content end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="js/jquery.sparkline.js" type="text/javascript"></script>
+<script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+<script src="js/owl.carousel.js"></script>
+<script src="js/jquery.customSelect.min.js"></script>
+
+<!--common script for all pages-->
+<script src="js/common-scripts.js"></script>
+
+<!--script for this page-->
+<script src="js/sparkline-chart.js"></script>
+<script src="js/easy-pie-chart.js"></script>
+
+<script>
+
+  //owl carousel
+
+  $(document).ready(function () {
+    $("#owl-demo").owlCarousel({
+      navigation: true,
+      slideSpeed: 300,
+      paginationSpeed: 400,
+      singleItem: true
+
+    });
+  });
+
+  //custom select box
+
+  $(function () {
+    $('select.styled').customSelect();
+  });
+
+
+  function save(oid) {
+    $.ajax({
+      url: "saveProfile",
+      contentType:"application/json",
+      dataType:"json",
+      type:"post",
+      data:JSON.stringify({
+        oid:oid,
+        trueName:$("#trueName").val(),
+        email:$("#email").val(),
+        signature:$("#signature").val(),
+      }),
+      success:function (data) {
+        if (data.success){
+          alert("保存成功");
+          window.location.replace("profile-edit");
+        }else{
+          alert("保存失败");
+        }
+
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
+

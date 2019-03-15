@@ -1,0 +1,21 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/teaching_evaluting_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    password: 960425
+    username: root
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+    static-path-pattern: /**
+  thymeleaf:
+    cache: false
+    enabled: true
+server:
+  port: 8080
+# 开启驼峰命名
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

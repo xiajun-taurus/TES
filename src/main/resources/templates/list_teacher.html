@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword"
+        content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <link rel="shortcut icon" href="img/favicon.html">
+
+  <title>教师列表</title>
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{~/css/bootstrap-reset.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{~/assets/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link th:href="@{~/css/style.css}" rel="stylesheet">
+  <link th:href="@{~/css/style-responsive.css}" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+  <!--[if lt IE 9]>
+  <script th:src="@{~/js/html5shiv.js}"></script>
+  <script th:src="@{~/js/respond.min.js}"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<section id="container" class="">
+  <!--header start-->
+  <header class="header white-bg">
+    <div class="sidebar-toggle-box">
+      <div data-original-title="Toggle Navigation" data-placement="right"
+           class="icon-reorder tooltips"></div>
+    </div>
+    <!--logo start-->
+    <a href="#" class="logo">教师评教系统</span></a>
+    <!--logo end-->
+
+  </header>
+  <!--header end-->
+  <!--sidebar start-->
+  <aside>
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li>
+          <a class="" th:href="@{~/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+            <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+          </ul>
+        </li>
+        <li class="active">
+          <a class="" th:href="@{~/list_teacher}">
+            <i class="icon-check"></i>
+            <span>教师信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_major}">
+            <i class="icon-check"></i>
+            <span>专业信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_class}">
+            <i class="icon-check"></i>
+            <span>班级信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_student}">
+            <i class="icon-check"></i>
+            <span>学生信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_course}">
+            <i class="icon-check"></i>
+            <span>课程管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_xuanke}">
+            <i class="icon-check"></i>
+            <span>选课管理</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a class="" href="javascript:void(0)">
+            <i class="icon-check"></i>
+            <span>题库管理</span>
+          </a>
+          <ul class="sub">
+            <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>
+            <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/result_charts}">
+            <i class="icon-check"></i>
+            <span>统计分析</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/login}">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+
+      <!--table start-->
+      <div class="row">
+        <div class="col-lg-12">
+          <section class="panel">
+            <header class="panel-heading">
+              教师列表
+            </header>
+            <table class="table table-striped border-top" id="sample_2">
+              <thead>
+              <tr>
+                <th style="width:8px;"><input type="checkbox" class="group-checkable"
+                                              data-set="#sample_2 .checkboxes"/></th>
+                <th>教师名称</th>
+                <th class="hidden-phone text-center">所授课程</th>
+                <th class="hidden-phone text-center">评价问卷</th>
+                <th class="hidden-phone text-center">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd gradeX" th:each="teacher:${teachers}">
+                <td><input type="checkbox" class="checkboxes" th:value="${teacher.oid}"/></td>
+                <td class="hidden-phone " th:text="${teacher.teacherName}">课堂表现</td>
+                <td class="hidden-phone text-center" th:text="${teacher.courseName}">优秀</td>
+                <td class="hidden-phone text-center" th:text="${teacher.paperName}">优秀</td>
+
+                <td class="hidden-phone text-center">
+                  <!--修改-->
+                  <!--<a class="btn btn-primary btn-xs" id="edit" th:data-id="${teacher.oid}" th:onclick="modalRend(this.getAttribute('data-id'))"><i class="icon-pencil"></i></a>-->
+                  <!--绑定-->
+                  <a class="btn btn-info btn-xs" th:data-id="${teacher.oid}"
+                     th:onclick="beforeBind(this.getAttribute('data-id'))"><i
+                      class="icon-link "></i></a>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+      <!--table end-->
+
+      <!-- page end-->
+    </section>
+  </section>
+  <!--main content end-->
+</section>
+<!--model start-->
+<div class="modal fade" id="teacher—add" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">新增教师</h4>
+      </div>
+      <div class="modal-body">
+        <!--page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+
+              <div class="panel-body">
+                <div class="form">
+                  <form class="cmxform form-horizontal tasi-form" id="signupForm" method="get"
+                        action="#">
+                    <div class="form-group ">
+                      <label for="teacherName" class="control-label col-lg-2">教师名称</label>
+                      <div class="col-lg-10">
+                        <input class=" form-control" id="teacherName" name="question" type="text"
+                               required/>
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="schoolNo" class="control-label col-lg-2">教师工号</label>
+                      <div class="col-lg-10">
+                        <input class=" form-control" id="schoolNo" name="question" type="text"
+                               required/>
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="courseOption" class="control-label col-lg-2">教授课程</label>
+                      <div class="col-lg-10">
+                        <select name="selectPaper" id="courseOption" class="form-control">
+                          <option value="">请选择课程</option>
+                          <option th:each="course:${courses}" th:value="${course.oid}"
+                                  th:text="${course.courseName}"></option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="panel-footer">
+                您可以在“题库管理”中将试题添加到问卷中，在“教师管理”给待评教师分配问卷
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" th:onclick="preAdd()">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--model end-->
+<!--model start-->
+<div class="modal fade" id="paper-bind" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">问卷绑定</h4>
+      </div>
+      <div class="modal-body">
+        <!--page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+
+              <div class="panel-body">
+                <div class="form">
+                  <form class="cmxform form-horizontal tasi-form" id="signupForm" method="get"
+                        action="#">
+                    <div class="form-group ">
+                      <label for="paperOption" class="control-label col-lg-2">问卷名称</label>
+                      <div class="col-lg-10">
+                        <select name="selectPaper" id="paperOption" class="form-control">
+                          <option value="">请选择问卷</option>
+                          <option th:each="paper:${papers}" th:value="${paper.oid}"
+                                  th:text="${paper.paperTitle}"></option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--model end-->
+<!--model start-->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal2">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">编辑问题</h4>
+      </div>
+      <div class="modal-body">
+        <!--page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+
+              <div class="panel-body">
+                <div class="form">
+                  <form class="cmxform form-horizontal tasi-form" id="signupForm" method="get"
+                        action="#">
+                    <div class="form-group ">
+                      <label class="control-label col-lg-2">添加到</label>
+                      <div class="col-lg-10">
+                        <select name="selectPaper" id="paperOption" class="form-control">
+                          <option value="">请选择问卷</option>
+                          <option th:each="paper:${papers}" th:value="${paper.oid}"
+                                  th:text="${paper.paperTitle}"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--model end-->
+<!-- js placed at the end of the document so the pages load faster -->
+<script th:src="@{~/js/jquery.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/jquery.scrollTo.min.js}"></script>
+<script th:src="@{~/js/jquery.nicescroll.js}" type="text/javascript"></script>
+<script type="text/javascript" th:src="@{~/js/jquery.validate.min.js}"></script>
+
+<script type="text/javascript" th:src="@{~/assets/data-tables/jquery.dataTables.js}"></script>
+<script type="text/javascript" th:src="@{~/assets/data-tables/DT_bootstrap.js}"></script>
+
+
+<!--common script for all pages-->
+<script th:src="@{~/js/common-scripts.js}"></script>
+
+<!--script for this page-->
+<script th:src="@{~/js/form-validation-script.js}"></script>
+<script th:src="@{~/js/dynamic-table.js}"></script>
+<script>
+  $(document).ready(function () {
+    $('#addPaper').click(function () {
+      $('#teacher—add').modal("show");
+    });
+  });
+
+  function preview() {
+    $("#paper—preview").modal("show");
+  }
+
+  function preAdd() {
+    var userName = $('#teacherName').val();
+    var schoolNo = $('#schoolNo').val();
+    var courseId = $('#courseOption option:selected').val();
+    userName && schoolNo && courseId? addStudent(userName,schoolNo,courseId) : alert(
+        "请完整填写信息！");
+  }
+
+  //添加问卷
+  function addTeacher(userName,schoolNo,courseId) {
+    $.ajax({
+      url: "addTeacher",
+      type: "post",
+      dataType: "json",
+      contentType: "application/json",
+      data: JSON.stringify(
+          {
+            userName: userName,
+            schoolNo: schoolNo,
+            courseId: courseId
+          }
+      ),
+      success: function (data) {
+        if (data.success) {
+          alert("添加成功");
+          window.location.replace("list_teacher");
+        } else {
+          alert("添加失败:" + data.errMsg);
+        }
+      }
+    });
+  }
+
+  function modalRend(oid) {
+    $('#paper—edit button.btn-primary').attr("onclick", "updatePaper('" + oid + "')");
+    $.ajax({
+      url: "localhost:8080/papers/getAPaper?oid=" + oid,
+      type: "get",
+      dataType: "json",
+      success: function (data) {
+        $('#title-edit').val(data.paperTitle);
+      }
+    });
+    $('#paper—edit').modal('show');
+  }
+
+  //绑定前
+  function beforeBind(oid) {
+    $('#paper-bind').modal("show");
+
+    $('#paper-bind button.btn-primary').click(function () {
+      $.ajax({
+        url: "paperbind",
+        contentType: "application/json",
+        dataType: "json",
+        type: "post",
+        data: JSON.stringify({
+          teacherId: oid,
+          paperId: $('#paper-bind option:selected').val()
+        }),
+        success: function (data) {
+          if (data.success) {
+            alert("绑定成功");
+            window.location.replace("list_teacher");
+          } else {
+            alert("添加失败");
+          }
+        },
+        error: function () {
+          alert("ajax请求失败");
+        }
+      })
+    });
+  }
+</script>
+
+</body>
+</html>

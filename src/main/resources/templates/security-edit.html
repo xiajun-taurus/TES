@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword"
+        content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <link rel="shortcut icon" href="img/favicon.html">
+
+  <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{~/css/bootstrap-reset.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{~/assets/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link th:href="@{~/css/style.css}" rel="stylesheet">
+  <link th:href="@{~/css/style-responsive.css}" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+  <!--[if lt IE 9]>
+  <script th:src="@{~/js/html5shiv.js}"></script>
+  <script th:src="@{~/js/respond.min.js}"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<section id="container" class="">
+  <!--header start-->
+  <header class="header white-bg">
+    <div class="sidebar-toggle-box">
+      <div data-original-title="Toggle Navigation" data-placement="right"
+           class="icon-reorder tooltips"></div>
+    </div>
+    <!--logo start-->
+    <a href="#" class="logo">教师评教系统</span></a>
+    <!--logo end-->
+
+  </header>
+  <!--header end-->
+  <!--sidebar start-->
+  <aside th:if="${session.userInfo.role} eq 0">
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li>
+          <a class="" th:href="@{~/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu active">
+          <a href="javascript:;" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+            <li class="active"><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_teacher}">
+            <i class="icon-check"></i>
+            <span>教师信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_major}">
+            <i class="icon-check"></i>
+            <span>专业信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_class}">
+            <i class="icon-check"></i>
+            <span>班级信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_student}">
+            <i class="icon-check"></i>
+            <span>学生信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_course}">
+            <i class="icon-check"></i>
+            <span>课程管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_xuanke}">
+            <i class="icon-check"></i>
+            <span>选课管理</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a class="" href="javascript:void(0)">
+            <i class="icon-check"></i>
+            <span>题库管理</span>
+          </a>
+          <ul class="sub">
+            <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>
+            <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/result_charts}">
+            <i class="icon-check"></i>
+            <span>统计分析</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/login}">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <aside th:if="${session.userInfo.role} ne 0">
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li>
+          <a class="" th:href="@{/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu active">
+          <a href="javascript:void(0);" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+            <li class="active"><a th:href="@{~/security-edit}">安全设置</a></li>
+
+          </ul>
+        </li>
+        <li th:if="${session.userInfo.role} eq 2">
+          <a class="" th:href="@{~/reading_papers}">
+            <i class="icon-check"></i>
+            <span>教师评教</span>
+          </a>
+        </li>
+        <li th:if="${session.userInfo.role} eq 1">
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" href="/login">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <section class="panel">
+            <header class="panel-heading">
+              安全设置
+            </header>
+            <div class="panel-body">
+              <div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active col-lg-6"><a href="#home"
+                                                                     aria-controls="home" role="tab"
+                                                                     data-toggle="tab"
+                                                                     class="text-center">密码修改</a>
+                  </li>
+                  <li role="presentation" class="col-lg-6"><a href="#profile "
+                                                              aria-controls="profile" role="tab"
+                                                              data-toggle="tab" class="text-center">密保问题绑定</a>
+                  </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                    <section class="panel col-lg-12">
+                      <div class="panel-body">
+                        <div class="tab-content tasi-tab">
+                          <div class="tab-pane active" id="popular">
+                            <!--state overview start-->
+                            <div class="panel panel-primary">
+                              <div class="panel-body">
+                                <form class="form-horizontal" th:action="updatePassword"
+                                      th:method="post" role="form">
+                                  <div class="form-group">
+                                    <label class="col-lg-2 control-label">当前密码</label>
+                                    <div class="col-lg-6">
+                                      <input type="password" class="form-control" id="c-pwd"
+                                             th:name="c-pwd" placeholder=" ">
+                                      <span class="text-danger" th:text="${errMsg}">密码错误</span>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-lg-2 control-label">新密码</label>
+                                    <div class="col-lg-6">
+                                      <input type="password" class="form-control" id="n-pwd"
+                                             th:name="n-pwd" placeholder=" ">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-lg-2 control-label">确认新密码</label>
+                                    <div class="col-lg-6">
+                                      <input type="password" class="form-control" id="rt-pwd"
+                                             th:onblur="validate()" placeholder=" ">
+                                    </div>
+                                  </div>
+                                  <div id="msg" style="display: none">
+                                    <label class="text-danger">两次密码不一致</label>
+                                    <label class="text-success" th:text="${msg}">修改成功</label>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                      <button type="submit" class="btn btn-info">保存</button>
+                                      <button type="button" class="btn btn-default">取消</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="profile">
+                    <section class="panel col-lg-12">
+                      <div class="panel-body">
+                        <div class="tab-content tasi-tab">
+                          <div class="tab-pane active" id="popular">
+                            <!--state overview start-->
+                            <div class="panel panel-primary">
+                              <div class="panel-body">
+
+                                <form class="form-horizontal" th:action="updatePassword"
+                                      th:method="post" role="form">
+                                  <div class="form-group">
+                                    <label class="col-lg-2 control-label">密保问题</label>
+                                    <div class="col-lg-6">
+
+                                      <select class="form-control" id="selector">
+                                        <option value="">请选择密保问题</option>
+                                        <option th:each="question:${questions}"
+                                                th:text="${question.getQuestion()}"
+                                                th:value="${question.getOid()}">
+
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-lg-2 control-label">密保答案</label>
+                                    <div class="col-lg-6">
+                                      <input type="text" class="form-control" id="answer"
+                                             placeholder=" ">
+                                      <input type="hidden" th:value="${session.userInfo.oid}"
+                                             id="user_oid">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                      <button type="submit" onclick="save();" class="btn btn-info">保存</button>
+                                      <button type="button" class="btn btn-default">取消</button>
+                                    </div>
+                                  </div>
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+
+  </section>
+  <!--main content end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script th:src="@{js/jquery.js}"></script>
+<script th:src="@{js/jquery-1.8.3.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/jquery.scrollTo.min.js}"></script>
+<script th:src="@{js/owl.carousel.js}"></script>
+<script th:src="@{js/jquery.customSelect.min.js}"></script>
+
+<!--common script for all pages-->
+<script th:src="@{js/common-scripts.js}"></script>
+
+<!--script for this page-->
+
+<script>
+
+  function validate() {
+
+    var pwd = $("#n-pwd").val();
+    var pwd1 = $("#rt-pwd").val();
+    <!-- 对比两次输入的密码 -->
+    if (pwd != pwd1) {
+      $("#msg").show();
+    }
+  }
+</script>
+<script th:inline="none">
+
+  function validate() {
+
+    var answer = $("#answer").val();
+
+    if (answer == null || answer == "") {
+      alert("请输入密保问题答案！")
+      return false;
+    }
+  }
+
+  function save() {
+    validate();
+    var userId = $("#user_oid").val();
+    var answer = $("#answer").val();
+    var questionId = $("#selector option:selected").val();
+    // alert(userId);
+    $.ajax({
+      url: "updatePasswordProtect?userId=" + userId + "&answer=" + answer + "&questionId="
+      + questionId,
+      contentType: "application/json",
+      dataType: "json",
+      type: "post",
+      success: function (data) {
+        if (data.flag) {
+          alert(data.message);
+          window.location.reload();
+        } else {
+          alert(data.message);
+        }
+
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword"
+        content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <link rel="shortcut icon" href="../static/img/favicon.html">
+
+  <title>Login</title>
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{~/css/bootstrap-reset.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{~/assets/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link th:href="@{~/css/style.css}" rel="stylesheet">
+  <link th:href="@{~/css/style-responsive.css}" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+  <form class="form-signin" action="/validate " method="post" id="login">
+    <h2 class="form-signin-heading">sign in now</h2>
+    <div class="login-wrap">
+      <input type="text" class="form-control" placeholder="用户名" autofocus id="usr" name="userName">
+      <input type="password" class="form-control" placeholder="密码" id="pwd" name="passWord">
+      <label class="checkbox">
+        <span class="pull-left text-danger" th:text="${errMsg}"></span>
+        <span class="pull-right"> <a href="/find-password"> 忘记密码?</a></span>
+      </label>
+      <button class="btn btn-lg btn-login btn-block" type="submit" id="btn-login">登录</button>
+
+    </div>
+
+  </form>
+
+</div>
+
+
+</body>
+</html>

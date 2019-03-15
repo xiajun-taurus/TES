@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword"
+        content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <link rel="shortcut icon" href="img/favicon.html">
+
+  <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{~/css/bootstrap-reset.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{~/assets/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link th:href="@{~/css/style.css}" rel="stylesheet">
+  <link th:href="@{~/css/style-responsive.css}" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+  <!--[if lt IE 9]>
+  <script th:src="@{~/js/html5shiv.js}"></script>
+  <script th:src="@{~/js/respond.min.js}"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<section id="container" class="">
+  <!--header start-->
+  <header class="header white-bg">
+    <div class="sidebar-toggle-box">
+      <div data-original-title="Toggle Navigation" data-placement="right"
+           class="icon-reorder tooltips"></div>
+    </div>
+    <!--logo start-->
+    <a href="#" class="logo">教师评教系统</span></a>
+    <!--logo end-->
+
+  </header>
+  <!--header end-->
+  <!--sidebar start-->
+  <aside>
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu">
+        <li class="active">
+          <a class="" th:href="@{~/home}">
+            <i class="icon-user"></i>
+            <span>个人中心</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;" class="">
+            <i class="icon-cogs"></i>
+            <span>个人设置</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub">
+            <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+            <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_teacher}">
+            <i class="icon-check"></i>
+            <span>教师信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_major}">
+            <i class="icon-check"></i>
+            <span>专业信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_class}">
+            <i class="icon-check"></i>
+            <span>班级信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_student}">
+            <i class="icon-check"></i>
+            <span>学生信息管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_course}">
+            <i class="icon-check"></i>
+            <span>课程管理</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/list_xuanke}">
+            <i class="icon-check"></i>
+            <span>选课管理</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a class="" href="javascript:void(0)">
+            <i class="icon-check"></i>
+            <span>题库管理</span>
+          </a>
+          <ul class="sub">
+            <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>
+            <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="" th:href="@{~/get_result}">
+            <i class="icon-check"></i>
+            <span>评教结果查看</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/result_charts}">
+            <i class="icon-check"></i>
+            <span>统计分析</span>
+          </a>
+        </li>
+        <li>
+          <a class="" th:href="@{~/login}">
+            <i class="icon-signout"></i>
+            <span>退出系统</span>
+          </a>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <!--state overview start-->
+      <div class="row">
+        <aside class="profile-nav col-lg-12">
+          <section class="panel">
+            <div class="user-heading round">
+              <a href="#">
+                <img src="img/profile-avatar.jpg" alt="">
+              </a>
+              <h1 class="trueName" th:text="${session.userInfo.trueName}">Jonathan Smith</h1>
+              <p class="email" th:text="${session.userInfo.getEMail()}">jsmith@flatlab.com</p>
+            </div>
+          </section>
+        </aside>
+        <aside class="profile-info col-lg-12">
+
+          <section class="panel">
+            <div class="bio-graph-heading" th:if="${userInfo.signature!=null}"
+                 th:text="${userInfo.signature}">
+              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum.
+              Aliquam ac magna metus.
+            </div>
+            <div class="panel-body bio-graph-info">
+              <h1>个人信息</h1>
+              <div class="row">
+                <div class="bio-row">
+                  <p><span>姓名 </span>: <span class="trueName"
+                                             th:text="${userInfo.trueName}">未知</span></p>
+                </div>
+                <div class="bio-row">
+                  <p><span>用户名 </span>: <span id="userName" th:text="${userInfo.userName}">未知</span>
+                  </p>
+                </div>
+                <div class="bio-row">
+                  <p><span>教职工号</span>: <span id="schoolNo" th:text="${userInfo.schoolNo}">未知</span>
+                  </p>
+                </div>
+                <div class="bio-row">
+                  <p><span>Email </span>: <span class="email" th:text="${userInfo.EMail}">未设置</span>
+                  </p>
+                </div>
+                <div class="bio-row">
+                  <p><span>手机 </span>: <span id="phone" th:text="${userInfo.phone}">未设置</span></p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+    </section>
+  </section>
+  <!--main content end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script th:src="@{js/jquery.js}"></script>
+<script th:src="@{js/jquery-1.8.3.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/jquery.scrollTo.min.js}"></script>
+<script th:src="@{js/owl.carousel.js}"></script>
+<script th:src="@{js/jquery.customSelect.min.js}"></script>
+
+<!--common script for all pages-->
+<script th:src="@{js/common-scripts.js}"></script>
+
+<!--script for this page-->
+
+
+</body>
+</html>
