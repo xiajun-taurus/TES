@@ -12,7 +12,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +31,7 @@ public class PaperController {
   private QuestionService questionService;
 
   /**
-   * 展示试卷列表
+   * 查询所有问卷并展示
    */
   @RequestMapping("list_paper")
   public String listPapers(Model model) {
@@ -40,7 +39,6 @@ public class PaperController {
     model.addAttribute("papers", allPapers);
     return "list_paper";
   }
-
 
 
   //返回json
@@ -128,7 +126,7 @@ public class PaperController {
   }
 
   @RequestMapping("deletePaper/{oid}")
-  public String deletePaper(@PathVariable("oid") String oid){
+  public String deletePaper(@PathVariable("oid") String oid) {
     int i = paperService.deletePaperById(oid);
     return "redirect:/list_paper";
   }

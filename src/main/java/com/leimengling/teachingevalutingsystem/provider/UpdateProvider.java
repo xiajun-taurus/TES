@@ -113,6 +113,9 @@ public class UpdateProvider {
         if (user.getSecurityAnswer() != null) {
           SET("security_answer = #{securityAnswer}");
         }
+        if (user.getPhone() != null) {
+          SET("phone = #{phone}");
+        }
         WHERE("oid = #{oid}");
       }
     }.toString();
