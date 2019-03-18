@@ -7,7 +7,8 @@ import lombok.Data;
  */
 @Data
 public class MajorInfo {
-
+  //专业id
   private String oid;
+  //专业名称
   private String majorName;
 }

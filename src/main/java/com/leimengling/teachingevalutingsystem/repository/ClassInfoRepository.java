@@ -26,11 +26,17 @@ public interface ClassInfoRepository {
   @SelectKey(keyProperty = "id", before = true, resultType = String.class, statement = "select replace(uuid(),'-','') as id from dual")
   int insertClassName(@Param("className") String className);
 
+  /**
+   * 查询所有班级信息
+   *
+   * @return 班级信息列表
+   */
   @Select("select * from classinfo")
   List<ClassInfo> findAllClass();
+
   /**
    * 通过班级id找到班级信息
-   * @param oid
+   *
    * @return classInfo 实体类
    */
   @Select("select * from classinfo where oid = #{oid}")
@@ -38,7 +44,7 @@ public interface ClassInfoRepository {
 
   /**
    * 通过班级id删除班级信息
-   * @param oid
+   *
    * @return 受影响行数
    */
   @Delete("delete from classinfo where oid =#{oid}")
@@ -46,9 +52,7 @@ public interface ClassInfoRepository {
 
   /**
    * 修改班级名称
-   * @param className
-   * @return
    */
   @Update("update classinfo set classname = #{className} where oid = #{oid}")
-  int updateClassName(@Param("oid")String oid,@Param("className") String className);
+  int updateClassName(@Param("oid") String oid, @Param("className") String className);
 }

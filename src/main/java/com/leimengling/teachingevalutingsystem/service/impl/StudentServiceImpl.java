@@ -52,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student findStudentById(String oid) {
+    //创建内部类，存放学生信息，班级名称和专业名称
     @lombok.Data
     class Data extends Student{
       private String className;
@@ -59,11 +60,13 @@ public class StudentServiceImpl implements StudentService {
     }
     Student byOid = studentRepository.findByOid(oid);
     Data data = new Data();
+    //转化
     try {
       ClassUtils.fatherToChild(byOid,data);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    //查询班级名称和专业名称填入
     ClassInfo classInfoById = classInfoRepository.findClassInfoById(byOid.getClassId());
     MajorInfo majorById = majorInfoRepository.findMajorById(byOid.getMajorId());
     data.setClassName(classInfoById.getClassName());
@@ -81,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
     //获取所有有问卷的教师
     List<Teacher> bindedTeacher = teacherRepository.findBindedTeacher();
     ArrayList<StudentServiceImpl.Data> dataList = new ArrayList<>();
-    bindedTeacher.forEach(teacher -> {
+    bindedTeacher.forEach(teacher -> { //对于每个教师执行以下操作
       String teacherOid = teacher.getOid();
       //获取该教师下所有学生
       List<String> students = (List<String>) servletContext.getAttribute(teacherOid);
@@ -98,6 +101,7 @@ public class StudentServiceImpl implements StudentService {
         data.setTeacherId(teacherOid);
         User userById = userRepository.findUserById(teacherOid);
         data.setTeacherName(userById.getTrueName());
+        //判断是不是评价过
         boolean comented = isComented(resultId, stuOid);
         data.setCommented(comented);
         data.setResultId(resultId);
@@ -120,13 +124,17 @@ public class StudentServiceImpl implements StudentService {
    */
   @Override
   public int addStudent(StudentVO studentVO) {
+    //首先创建user对象
     User user = new User();
+    //设置相关信息
     user.setTrueName(studentVO.getUserName());
     user.setSchoolNo(studentVO.getSchoolNo());
     user.setUserName(studentVO.getSchoolNo());
     user.setRole(2);
+    //创建用户记录
     int i = userRepository.insertUser(user);
     if (i > 0) {
+      //然后添加学生表中数据
       User byUserName = userRepository.findByUserName(studentVO.getSchoolNo());
       Student student = new Student();
       student.setOid(byUserName.getOid());
@@ -134,7 +142,7 @@ public class StudentServiceImpl implements StudentService {
       student.setMajorId(studentVO.getMajorId());
       int i1 = studentRepository.insertStudent(student);
       if (i1 > 0) {
-        return 1;
+        return 1;//都添加成功返回1
       }
     }
     return 0;
@@ -145,6 +153,7 @@ public class StudentServiceImpl implements StudentService {
    */
   @Override
   public List<? extends Student> findAllStudents() {
+    //内部类，包含姓名，班级，专业
     @lombok.Data
     class Data extends Student {
 
@@ -155,6 +164,7 @@ public class StudentServiceImpl implements StudentService {
 
     List<Student> allStudents = studentRepository.findAllStudents();
     ArrayList<Data> datas = new ArrayList<>();
+    //对每个学生都进行转化
     for (Student student : allStudents) {
       Data data = new Data();
       try {
@@ -162,14 +172,15 @@ public class StudentServiceImpl implements StudentService {
       } catch (Exception e) {
         e.printStackTrace();
       }
+
       ClassInfo classInfoById = classInfoRepository.findClassInfoById(student.getClassId());
       MajorInfo majorById = majorInfoRepository.findMajorById(student.getMajorId());
       User userById = userRepository.findUserById(student.getOid());
-
+      //添加班级、专业、姓名
       data.setClassName(classInfoById.getClassName());
       data.setMajorName(majorById.getMajorName());
       data.setStudentName(userById.getTrueName());
-      datas.add(data);
+      datas.add(data);//转化后的学生放到列表内
     }
     return datas;
   }

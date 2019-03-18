@@ -11,6 +11,7 @@ import com.leimengling.teachingevalutingsystem.repository.PaperRepository;
 import com.leimengling.teachingevalutingsystem.repository.TeacherRepository;
 import com.leimengling.teachingevalutingsystem.repository.UserRepository;
 import com.leimengling.teachingevalutingsystem.service.TeacherService;
+import com.leimengling.teachingevalutingsystem.utils.ClassUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,29 @@ public class TeacherServiceImpl implements TeacherService {
   private CourseInfoRepository courseInfoRepository;
   @Autowired
   private PaperRepository paperRepository;
+
+  /**
+   * 传入教师id和问卷id，进行绑定
+   * @param teacherId
+   * @param paperId
+   * @return 受影响行数
+   */
   @Override
   public int bindPaper(String teacherId, String paperId) {
+//    先进行绑定
     int bindPaper = teacherRepository.bindPaper(teacherId, paperId);
+
     if (bindPaper > 0) {
+//      绑定成功之后生成一个对应的result
       CommentResult commentResult = new CommentResult();
       commentResult.setPaperId(paperId);
       commentResult.setTeacherId(teacherId);
+//      初始化平均分
       commentResult.setAverScore((float) 0);
+//      将result放入数据库，后期评教的时候直接对此result进行更新
       int insertCommentResult = commentResultRepository.insertCommentResult(commentResult);
       if (insertCommentResult > 0) {
-        return 1;
+        return 1;//创建成功。返回1
       } else {
         return 0;
       }
@@ -67,11 +80,14 @@ public class TeacherServiceImpl implements TeacherService {
       User userById = userRepository.findUserById(teacher.getOid());
       CourseInfo courseInfoById = courseInfoRepository.findCourseInfoById(teacher.getCourseId());
       Paper paperById = paperRepository.findPaperById(teacher.getPaperId());
-      data.setOid(teacher.getOid());
-      data.setPaperId(teacher.getPaperId());
-      data.setCourseId(teacher.getCourseId());
+      try {
+        ClassUtils.fatherToChild(teacher,data);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       data.setTeacherName(userById.getTrueName());
       data.setCourseName(courseInfoById.getCourseName());
+      //如果有问卷，设置问卷名称
       if (paperById != null) {
         data.setPaperName(paperById.getPaperTitle());
       }

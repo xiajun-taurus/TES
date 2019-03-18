@@ -26,13 +26,15 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 
   @Override
   public List<? extends ClassInfo> getAllClass() {
+    //内部类，添加班级人数字段
     @lombok.Data
     class Data extends ClassInfo{
       private int count;
     }
+    //查询所有班级信息
     List<ClassInfo> allClass = classInfoRepository.findAllClass();
     List<Data> datas = new ArrayList<>();
-
+    //遍历班级列表，对每一个班级，查询出该班级内所有学生，求出学生人数，赋给count
     for(ClassInfo classInfo:allClass){
       Data data = new Data();
       try {

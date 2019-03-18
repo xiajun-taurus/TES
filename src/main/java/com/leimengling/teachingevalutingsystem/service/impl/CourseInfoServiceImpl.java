@@ -16,22 +16,27 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
-@Autowired
+
+  @Autowired
   private CourseInfoRepository courseInfoRepository;
 
   @Override
   public List<? extends CourseInfo> findAllCourseInfo() {
+    //内部类，新增字段格式化时间
     @lombok.Data
-    class Data extends CourseInfo{
+    class Data extends CourseInfo {
+
       private String time;
     }
+    //查询所有课程信息
     List<CourseInfo> allCourseInfo = courseInfoRepository.findAllCourseInfo();
     ArrayList<Data> dataList = new ArrayList<>();
-    for (CourseInfo courseInfo:allCourseInfo){
+    //对于每一个课程信息，将时间格式化之后放入内部类，最后以列表返回给前端
+    for (CourseInfo courseInfo : allCourseInfo) {
       Data data = new Data();
       Date lastEditTime = courseInfo.getLastEditTime();
       try {
-        ClassUtils.fatherToChild(courseInfo,data);
+        ClassUtils.fatherToChild(courseInfo, data);
       } catch (Exception e) {
         e.printStackTrace();
       }

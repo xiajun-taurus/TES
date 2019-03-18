@@ -8,6 +8,8 @@ import lombok.Data;
  */
 @Data
 public class ChartsData {
+  //图标标题
   private String title;
+  //图标元素
   private HashMap<String,Object> dataMap = new HashMap<>();
 }

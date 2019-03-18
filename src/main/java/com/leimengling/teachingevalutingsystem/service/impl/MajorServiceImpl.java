@@ -20,13 +20,16 @@ public class MajorServiceImpl implements MajorService {
 
   @Override
   public List<? extends MajorInfo> findAllMajorInfo() {
+    //内部类，新增专业人数字段
     @lombok.Data
     class Data extends MajorInfo {
 
       private int count;
     }
+    //查询所有专业
     List<MajorInfo> allMajor = majorInfoRepository.findAllMajor();
     ArrayList<Data> datas = new ArrayList<>();
+    //对每一个专业，获取专业下的人数，放到内部类中
     for (MajorInfo majorInfo : allMajor) {
       Data data = new Data();
       try {
@@ -38,7 +41,7 @@ public class MajorServiceImpl implements MajorService {
       data.setCount(count);
       datas.add(data);
     }
-    return datas;
+    return datas;//返回带有专业人数的专业信息
   }
 
   @Override

@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
     return userRepository.insertUser(user);
   }
 
+  //根据id更新密码
   @Override
   public int updatePassword(String id,String newPassword) {
     User user = new User();
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
     user.setPassword(newPassword);
     return userRepository.updateUser(user);
   }
+
   public int updateUserSecurityQuestion(String question, String answer, String oid) {
     return userRepository.updateUserSecurityQuestion(question,answer,oid);
   }

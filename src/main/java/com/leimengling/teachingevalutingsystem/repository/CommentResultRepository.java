@@ -15,16 +15,36 @@ import org.apache.ibatis.annotations.UpdateProvider;
 @Mapper
 public interface CommentResultRepository {
 
+  /**
+   * 插入一个评论结果
+   * @param commentResult 评论结果对象
+   * @return 受影响行数
+   */
   @Insert("insert into `teaching_evaluting_system`.`comment_result` ( `oid`, `teacher_id`, `class_id`, `paper_id`, `aver_score`, `comment`, `create_time`) values ( #{oid}, #{teacherId}, #{classId}, #{paperId}, #{averScore}, #{comment}, #{createTime});")
   @SelectKey(keyProperty = "oid", before = true, resultType = String.class, statement = "select replace(uuid(),'-','') as id from dual")
   int insertCommentResult(CommentResult commentResult);
 
+  /**
+   * 查询所有评教结果信息
+   * @return 评教结果信息列表
+   */
   @Select("select * from comment_result")
   List<CommentResult> findAllResults();
 
+  /**
+   * 更新评教结果
+   * @param result
+   * @return 受影响行数
+   */
   @UpdateProvider(type = com.leimengling.teachingevalutingsystem.provider.UpdateProvider.class, method = "CommentResultProvider")
   int updateResult(CommentResult result);
 
+  /**
+   * 根据teacherid和paperid查询一个评教结果
+   * @param teacherId
+   * @param paperId
+   * @return
+   */
   @Select("select oid from comment_result where teacher_id= #{teacherId}"
       + "and paper_id=#{paperId}")
   String getCommentIdByTeacherIdAndPaperId(@Param("teacherId") String teacherId,

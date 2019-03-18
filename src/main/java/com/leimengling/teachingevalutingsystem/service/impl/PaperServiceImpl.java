@@ -66,7 +66,7 @@ public class PaperServiceImpl implements PaperService {
     }else {
       s = join + "," + questionsInPaper;
     }
-    //降重
+    //降重，把结合的问题id通过逗号分隔，放到set中去重
     String[] split = s.split(",");
     List<String> strings = Arrays.asList(split);
     HashSet<String> set = new HashSet<>(strings);
@@ -74,17 +74,21 @@ public class PaperServiceImpl implements PaperService {
       set.add(strings.get(i));
     }
     String join1 = String.join(",", set);
+    //最后更新到数据库中
     return paperRepository.updatePaperQuestions(id,join1);
   }
 
   @Override
   public List<? extends Paper> getAllPapers() {
+    //内部类，添加格式化日期字段
     @lombok.Data
     class Data extends Paper{
       private String fDate;
     }
+    //找到所有问卷信息
     List<Paper> allPapers = paperRepository.findAllPapers();
     List<Data> dataList =new ArrayList<>();
+    //对每个问卷信息的日期格式化，放到新内部类里
     for (Paper paper:allPapers){
       Data data = new Data();
       try {
@@ -96,7 +100,7 @@ public class PaperServiceImpl implements PaperService {
       data.setFDate(s);
       dataList.add(data);
     }
-    return dataList;
+    return dataList;//返回带有格式化日期的对象列表
   }
 
   @Override

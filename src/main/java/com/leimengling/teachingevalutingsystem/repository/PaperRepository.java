@@ -2,7 +2,6 @@ package com.leimengling.teachingevalutingsystem.repository;
 
 import com.leimengling.teachingevalutingsystem.domain.Paper;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -73,6 +72,11 @@ public interface PaperRepository {
   @Select("select questions from papers where oid = #{oid}")
   String findQuestionsInPaper(String oid);
 
+  /**
+   * 插入一条问卷信息
+   * @param paper
+   * @return 受影响行数
+   */
   @SelectKey(keyProperty = "oid", before = true, resultType = String.class, statement = "select replace(uuid(),'-','') as id from dual")
   @Insert("insert into papers(oid,paper_title) values(#{oid},#{paperTitle})")
   int insertPaper(Paper paper);

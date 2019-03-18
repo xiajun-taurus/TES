@@ -29,14 +29,24 @@ public interface StudentRepository {
   List<String> findAllStudentIdInClass(String classId);
 
   /**
-   * 获取所有学生
+   * 获取所有学生信息
    */
   @Select("select * from students")
   List<Student> findAllStudents();
 
+  /**
+   * 插入一个学生信息
+   * @param student
+   * @return 受影响行数
+   */
   @Insert("insert into students(oid,class_id,major_id) values(#{oid},#{classId},#{majorId})")
   int insertStudent(Student student);
 
+  /**
+   * 根据id在学生表里删除信息
+   * @param oid
+   * @return 受影响行数
+   */
   @Delete("delete from students where oid = #{oid}")
   int deleteStudent(String oid);
 

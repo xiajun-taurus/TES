@@ -8,8 +8,10 @@ import lombok.Data;
  */
 @Data
 public class CourseInfo {
-
+  //课程id
   private String oid;
+  //上次更新时间
   private Date lastEditTime;
+  //课程名称
   private String courseName;
 }

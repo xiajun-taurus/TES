@@ -7,7 +7,8 @@ import lombok.Data;
  */
 @Data
 public class SecurityQuestion {
-
+  //密保问题id
   private String oid;
+  //密保问题
   private String question;
 }

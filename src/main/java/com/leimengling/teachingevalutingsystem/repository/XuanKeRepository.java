@@ -13,13 +13,27 @@ import org.apache.ibatis.annotations.SelectKey;
 @Mapper
 public interface XuanKeRepository {
 
+  /**
+   * 通过课程id查询选修该课程的班级
+   * @param courseId
+   * @return 班级id列表
+   */
   @Select("select class_id from xuanke where course_id =#{courseId}")
   List<String> findClassByCourseId(String courseId);
 
+  /**
+   * 插入一个选课信息
+   * @param xuanKe
+   * @return 受影响行数
+   */
   @Insert("insert into xuanke(oid,course_id,class_id) values(#{oid},#{courseId},#{classId})")
   @SelectKey(keyProperty = "oid", before = true, resultType = String.class, statement = "select replace(uuid(),'-','') as id from dual")
   int insertXuanke(XuanKe xuanKe);
 
+  /**
+   * 查询所有选课信息
+   * @return 选课信息列表
+   */
   @Select("select * from xuanke")
   List<XuanKe> findAllXuankeInfo();
 }
