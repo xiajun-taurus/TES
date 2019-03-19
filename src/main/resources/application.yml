@@ -1,6 +1,7 @@
 
 spring:
   datasource:
+    #记得修改表名
     url: jdbc:mysql://localhost:3306/teaching_evaluting_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     password: 123456
     username: root
