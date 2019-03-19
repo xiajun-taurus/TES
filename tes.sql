@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : utf-8
 
- Date: 03/15/2019 21:29:38 PM
+ Date: 03/19/2019 13:46:16 PM
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,11 @@ CREATE TABLE `comment_result` (
   `aver_score` float DEFAULT NULL COMMENT '平均得分',
   `comment` varchar(128) DEFAULT NULL COMMENT '评价内容',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评价时间',
-  PRIMARY KEY (`oid`)
+  PRIMARY KEY (`oid`),
+  KEY `teacher_id` (`teacher_id`),
+  KEY `paper_id` (`paper_id`),
+  CONSTRAINT `comment_result_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`oid`),
+  CONSTRAINT `comment_result_ibfk_2` FOREIGN KEY (`paper_id`) REFERENCES `papers` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -67,7 +71,10 @@ CREATE TABLE `comment_result_item` (
   `commenter_id` varchar(32) DEFAULT NULL COMMENT '评价人id',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评价时间',
   PRIMARY KEY (`oid`),
-  KEY `result_id` (`result_id`)
+  KEY `result_id` (`result_id`),
+  KEY `commenter_id` (`commenter_id`),
+  CONSTRAINT `comment_result_item_ibfk_1` FOREIGN KEY (`result_id`) REFERENCES `comment_result` (`oid`),
+  CONSTRAINT `comment_result_item_ibfk_2` FOREIGN KEY (`commenter_id`) REFERENCES `students` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -101,7 +108,8 @@ COMMIT;
 DROP TABLE IF EXISTS `major_info`;
 CREATE TABLE `major_info` (
   `oid` varchar(128) DEFAULT NULL,
-  `major_name` varchar(128) DEFAULT NULL COMMENT '专业名称'
+  `major_name` varchar(128) DEFAULT NULL COMMENT '专业名称',
+  KEY `oid` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -181,14 +189,19 @@ CREATE TABLE `students` (
   `oid` varchar(128) NOT NULL,
   `major_id` varchar(128) DEFAULT NULL COMMENT '专业id',
   `class_id` varchar(128) DEFAULT NULL COMMENT '班级id',
-  PRIMARY KEY (`oid`)
+  PRIMARY KEY (`oid`),
+  KEY `major_id` (`major_id`),
+  KEY `class_id` (`class_id`),
+  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `user` (`oid`),
+  CONSTRAINT `students_ibfk_2` FOREIGN KEY (`major_id`) REFERENCES `major_info` (`oid`),
+  CONSTRAINT `students_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `classinfo` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `students`
 -- ----------------------------
 BEGIN;
-INSERT INTO `students` VALUES ('1938cbce3b4811e9aa894cc702b37b50', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('9eace8f228ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('d0d9fd6028ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949');
+INSERT INTO `students` VALUES ('1938cbce3b4811e9aa894cc702b37b50', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('5751c3fa4a0911e99a910b31d4977892', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('9eace8f228ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('d0d9fd6028ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949');
 COMMIT;
 
 -- ----------------------------
@@ -206,7 +219,7 @@ CREATE TABLE `teacher` (
 --  Records of `teacher`
 -- ----------------------------
 BEGIN;
-INSERT INTO `teacher` VALUES ('03ed90d428e611e98b74599b0132f949', 'a22cd3f20c2d11e989b02dec18b133e8', '893d2728291211e98b74599b0132f949');
+INSERT INTO `teacher` VALUES ('03ed90d428e611e98b74599b0132f949', 'a22cd3f20c2d11e989b02dec18b133e8', '893d2728291211e98b74599b0132f949'), ('aec222f64a0911e99a910b31d4977892', 'aaec07c40c2d11e989b02dec18b133e8', null);
 COMMIT;
 
 -- ----------------------------
@@ -226,14 +239,16 @@ CREATE TABLE `user` (
   `security_question` varchar(128) DEFAULT NULL COMMENT '密保问题',
   `security_answer` varchar(128) DEFAULT NULL COMMENT '密保问题答案',
   `phone` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`oid`)
+  PRIMARY KEY (`oid`),
+  KEY `security_question` (`security_question`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`security_question`) REFERENCES `security_question` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('03ed90d428e611e98b74599b0132f949', '150800001', '150800001', '胡雷', '000000', null, null, null, '1', null, null, null), ('1938cbce3b4811e9aa894cc702b37b50', '150811401', '150811401', '华成志', '000000', null, null, null, '2', null, null, null), ('899f5e3428e511e98b74599b0132f949', '000000000', 'admin', '管理员', 'admin', 'admin@sdjtu.com', '做好管理者', null, '0', '9dd4b9fa383d11e9bb566d5d8ca59808', 'q2', null), ('9eace8f228ed11e98b74599b0132f949', '150811406', '150811406', '夏军', '000000', null, null, null, '2', null, null, null), ('d0d9fd6028ed11e98b74599b0132f949', '150811402', '150811402', '华成志', '000000', null, null, null, '2', null, null, null);
+INSERT INTO `user` VALUES ('03ed90d428e611e98b74599b0132f949', '150800001', '150800001', '胡雷', '000000', null, null, null, '1', null, null, null), ('1938cbce3b4811e9aa894cc702b37b50', '150811401', '150811401', '华成志', '000000', null, null, null, '2', null, null, null), ('5751c3fa4a0911e99a910b31d4977892', '150811335', '150811335', '王小明', '000000', null, null, null, '2', null, null, null), ('899f5e3428e511e98b74599b0132f949', '000000000', 'admin', '管理员', 'admin', 'admin@sdjtu.com', '做好管理者', null, '0', '9dd4b9fa383d11e9bb566d5d8ca59808', 'q2', null), ('9eace8f228ed11e98b74599b0132f949', '150811406', '150811406', '夏小军', '000000', 'leimengling@163.co', '', null, '2', null, null, '13791082681'), ('aec222f64a0911e99a910b31d4977892', '10086', '10086', '王大明', '000000', '', '我是隔壁的老王', null, '1', null, null, '10010'), ('d0d9fd6028ed11e98b74599b0132f949', '150811402', '150811402', '华成志', '000000', null, null, null, '2', null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -244,7 +259,11 @@ CREATE TABLE `xuanke` (
   `oid` varchar(32) NOT NULL,
   `class_id` varchar(32) NOT NULL COMMENT '班级id',
   `course_id` varchar(32) NOT NULL COMMENT '课程id',
-  PRIMARY KEY (`oid`)
+  PRIMARY KEY (`oid`),
+  KEY `class_id` (`class_id`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `xuanke_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classinfo` (`oid`),
+  CONSTRAINT `xuanke_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course_info` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
