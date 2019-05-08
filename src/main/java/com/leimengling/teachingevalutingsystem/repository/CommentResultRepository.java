@@ -20,7 +20,7 @@ public interface CommentResultRepository {
    * @param commentResult 评论结果对象
    * @return 受影响行数
    */
-  @Insert("insert into `teaching_evaluting_system`.`comment_result` ( `oid`, `teacher_id`, `class_id`, `paper_id`, `aver_score`, `comment`, `create_time`) values ( #{oid}, #{teacherId}, #{classId}, #{paperId}, #{averScore}, #{comment}, #{createTime});")
+  @Insert("insert into `teaching_evaluting_system`.`comment_result` ( `oid`, `teacher_id`, `paper_id`, `aver_score`, `comment`, `create_time`) values ( #{oid}, #{teacherId}, #{paperId}, #{averScore}, #{comment}, #{createTime});")
   @SelectKey(keyProperty = "oid", before = true, resultType = String.class, statement = "select replace(uuid(),'-','') as id from dual")
   int insertCommentResult(CommentResult commentResult);
 

@@ -271,7 +271,7 @@
         success: function (data) {
           if (data.success) {
             alert("评价成功");
-            window.location.replace("http://localhost:8080/index");
+            window.location = document.referrer;
           } else {
             alert("评价失败");
           }
