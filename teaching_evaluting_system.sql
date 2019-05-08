@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50719
+ Source Server Version : 50725
  Source Host           : localhost
  Source Database       : teaching_evaluting_system
 
  Target Server Type    : MySQL
- Target Server Version : 50719
+ Target Server Version : 50725
  File Encoding         : utf-8
 
- Date: 03/19/2019 13:46:16 PM
+ Date: 05/09/2019 00:44:27 AM
 */
 
 SET NAMES utf8mb4;
@@ -74,15 +74,8 @@ CREATE TABLE `comment_result_item` (
   KEY `result_id` (`result_id`),
   KEY `commenter_id` (`commenter_id`),
   CONSTRAINT `comment_result_item_ibfk_1` FOREIGN KEY (`result_id`) REFERENCES `comment_result` (`oid`),
-  CONSTRAINT `comment_result_item_ibfk_2` FOREIGN KEY (`commenter_id`) REFERENCES `students` (`oid`)
+  CONSTRAINT `comment_result_item_ibfk_2` FOREIGN KEY (`commenter_id`) REFERENCES `students` (`oid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `comment_result_item`
--- ----------------------------
-BEGIN;
-INSERT INTO `comment_result_item` VALUES ('b3c388d6294211e98b74599b0132f949', '9', '教学质量很高', 'c3374c6a291211e98b74599b0132f949', '9eace8f228ed11e98b74599b0132f949', '2019-02-05 20:36:47');
-COMMIT;
 
 -- ----------------------------
 --  Table structure for `course_info`
@@ -192,7 +185,7 @@ CREATE TABLE `students` (
   PRIMARY KEY (`oid`),
   KEY `major_id` (`major_id`),
   KEY `class_id` (`class_id`),
-  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `user` (`oid`),
+  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `user` (`oid`) ON DELETE CASCADE,
   CONSTRAINT `students_ibfk_2` FOREIGN KEY (`major_id`) REFERENCES `major_info` (`oid`),
   CONSTRAINT `students_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `classinfo` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -201,7 +194,7 @@ CREATE TABLE `students` (
 --  Records of `students`
 -- ----------------------------
 BEGIN;
-INSERT INTO `students` VALUES ('1938cbce3b4811e9aa894cc702b37b50', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('5751c3fa4a0911e99a910b31d4977892', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('9eace8f228ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949'), ('d0d9fd6028ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949');
+INSERT INTO `students` VALUES ('d0d9fd6028ed11e98b74599b0132f949', '1dcaded028eb11e98b74599b0132f949', '39fc1ba828ed11e98b74599b0132f949');
 COMMIT;
 
 -- ----------------------------
@@ -248,7 +241,7 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('03ed90d428e611e98b74599b0132f949', '150800001', '150800001', '胡雷', '000000', null, null, null, '1', null, null, null), ('1938cbce3b4811e9aa894cc702b37b50', '150811401', '150811401', '华成志', '000000', null, null, null, '2', null, null, null), ('5751c3fa4a0911e99a910b31d4977892', '150811335', '150811335', '王小明', '000000', null, null, null, '2', null, null, null), ('899f5e3428e511e98b74599b0132f949', '000000000', 'admin', '管理员', 'admin', 'admin@sdjtu.com', '做好管理者', null, '0', '9dd4b9fa383d11e9bb566d5d8ca59808', 'q2', null), ('9eace8f228ed11e98b74599b0132f949', '150811406', '150811406', '夏小军', '000000', 'leimengling@163.co', '', null, '2', null, null, '13791082681'), ('aec222f64a0911e99a910b31d4977892', '10086', '10086', '王大明', '000000', '', '我是隔壁的老王', null, '1', null, null, '10010'), ('d0d9fd6028ed11e98b74599b0132f949', '150811402', '150811402', '华成志', '000000', null, null, null, '2', null, null, null);
+INSERT INTO `user` VALUES ('03ed90d428e611e98b74599b0132f949', '150800001', '150800001', '胡雷', '000000', null, null, null, '1', null, null, null), ('899f5e3428e511e98b74599b0132f949', '000000000', 'admin', '管理员', 'admin', 'admin@sdjtu.com', '做好管理者', null, '0', '9dd4b9fa383d11e9bb566d5d8ca59808', 'q2', null), ('aec222f64a0911e99a910b31d4977892', '10086', '10086', '王大明', '000000', '', '我是隔壁的老王', null, '1', null, null, '10010'), ('d0d9fd6028ed11e98b74599b0132f949', '150811402', '150811402', '华成志', '000000', null, null, null, '2', null, null, null);
 COMMIT;
 
 -- ----------------------------
