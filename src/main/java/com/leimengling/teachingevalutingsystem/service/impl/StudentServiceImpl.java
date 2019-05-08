@@ -113,8 +113,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public int delStudent(String oid) {
-    userRepository.deleteUser(oid);
-    return studentRepository.deleteStudent(oid);
+    return userRepository.deleteUser(oid);
   }
 
   /**
