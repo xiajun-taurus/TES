@@ -25,6 +25,11 @@
   <script th:src="@{~/js/html5shiv.js}"></script>
   <script th:src="@{~/js/respond.min.js}"></script>
   <![endif]-->
+  <style>
+    em#allow{
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
@@ -221,8 +226,9 @@
                 <div class="form-group">
                   <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价</label>
                   <div class="col-lg-10 col-lg-offset-1">
-                    <textarea class="form-control" name="editor1" rows="6"
-                              placeholder="在此填写对教师的主观印象" required></textarea>
+                    <p>您还可以输入<span><em id="allow" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment" name="editor1" rows="6"
+                              placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
                   </div>
                 </div>
                 <div class="form-group">
@@ -252,6 +258,14 @@
 <!--common script for all pages-->
 <script th:src="@{~/js/common-scripts.js}"></script>
 <script>
+  window.onload = function() {
+    var total = 100;
+
+    onkeyup = function() {
+      var count = document.getElementById('comment').value.length;
+      document.getElementById('allow').innerHTML=total-count;
+    }
+  }
   $(document).ready(function () {
     $('a.btn-info').click(function () {
       var checkedvalue = 0;
