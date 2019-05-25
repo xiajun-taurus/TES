@@ -26,7 +26,7 @@
   <script th:src="@{~/js/respond.min.js}"></script>
   <![endif]-->
   <style>
-    em#allow{
+    em{
       color: red;
     }
   </style>
@@ -224,16 +224,48 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价</label>
+                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价1</label>
                   <div class="col-lg-10 col-lg-offset-1">
-                    <p>您还可以输入<span><em id="allow" class="allow">100</em>/100</span>个字</p>
-                    <textarea class="form-control" id="comment" name="editor1" rows="6"
+                    <p>您还可以输入<span><em id="allow1" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment1" name="editor1" rows="6"
+                              placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价2</label>
+                  <div class="col-lg-10 col-lg-offset-1">
+                    <p>您还可以输入<span><em id="allow2" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment2" name="editor1" rows="6"
+                              placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价3</label>
+                  <div class="col-lg-10 col-lg-offset-1">
+                    <p>您还可以输入<span><em id="allow3" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment3" name="editor1" rows="6"
+                              placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价4</label>
+                  <div class="col-lg-10 col-lg-offset-1">
+                    <p>您还可以输入<span><em id="allow4" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment4" name="editor1" rows="6"
+                              placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-10 col-lg-offset-1">对教师的印象及评价5</label>
+                  <div class="col-lg-10 col-lg-offset-1">
+                    <p>您还可以输入<span><em id="allow5" class="allow">100</em>/100</span>个字</p>
+                    <textarea class="form-control" id="comment5" name="editor1" rows="6"
                               placeholder="在此填写对教师的主观印象" maxlength="100" required></textarea>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="col-lg-offset-2 col-lg-10">
-                    <a class="btn btn-info" th:data-result="${resultId}">保存</a>
+                    <a class="btn btn-info" th:data-result="${resultId}" id="save">保存</a>
                     <button class="btn btn-default" type="button">取消</button>
                   </div>
                 </div>
@@ -262,16 +294,25 @@
     var total = 100;
 
     onkeyup = function() {
-      var count = document.getElementById('comment').value.length;
-      document.getElementById('allow').innerHTML=total-count;
+      var count1 = document.getElementById('comment1').value.length;
+      var count2 = document.getElementById('comment2').value.length;
+      var count3 = document.getElementById('comment3').value.length;
+      var count4 = document.getElementById('comment4').value.length;
+      var count5 = document.getElementById('comment5').value.length;
+      document.getElementById('allow1').innerHTML=total-count1;
+      document.getElementById('allow2').innerHTML=total-count2;
+      document.getElementById('allow3').innerHTML=total-count3;
+      document.getElementById('allow4').innerHTML=total-count4;
+      document.getElementById('allow5').innerHTML=total-count5;
     }
   }
   $(document).ready(function () {
-    $('a.btn-info').click(function () {
+    $('#save').click(function () {
       var checkedvalue = 0;
       $('input:radio:checked').each(function () {
         checkedvalue += Number.parseInt($(this).val());
       });
+      var comment = $('#comment1').val()+ '。'+$('#comment2').val()+'。'+$('#comment3').val()+'。'+$('#comment4').val()+'。'+$('#comment5').val()+'。'
       $.ajax({
         url: "/comment",
         type: "post",
@@ -279,12 +320,13 @@
         dataType: "json",
         data: JSON.stringify({
           score: checkedvalue,
-          comment: $('textarea').val(),
+          comment: comment,
           resultId:$('a.btn-info').data('result')
         }),
         success: function (data) {
           if (data.success) {
             alert("评价成功");
+            console.log(comment);
             window.location = document.referrer;
           } else {
             alert("评价失败");

@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : utf-8
 
- Date: 05/09/2019 00:44:27 AM
+ Date: 05/25/2019 17:49:14 PM
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `comment_result` (
   `teacher_id` varchar(32) DEFAULT NULL COMMENT '教师id',
   `paper_id` varchar(32) DEFAULT NULL COMMENT '试卷id',
   `aver_score` float DEFAULT NULL COMMENT '平均得分',
-  `comment` varchar(128) DEFAULT NULL COMMENT '评价内容',
+  `comment` text COMMENT '评价内容',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评价时间',
   PRIMARY KEY (`oid`),
   KEY `teacher_id` (`teacher_id`),
@@ -56,7 +56,7 @@ CREATE TABLE `comment_result` (
 --  Records of `comment_result`
 -- ----------------------------
 BEGIN;
-INSERT INTO `comment_result` VALUES ('c3374c6a291211e98b74599b0132f949', '03ed90d428e611e98b74599b0132f949', '893d2728291211e98b74599b0132f949', '8.5', '教学质量很高老师为人负责，上课风趣幽默，是个好老师  ', '2019-02-05 16:36:01');
+INSERT INTO `comment_result` VALUES ('c3374c6a291211e98b74599b0132f949', '03ed90d428e611e98b74599b0132f949', '893d2728291211e98b74599b0132f949', '0', '', '2019-02-05 16:36:01');
 COMMIT;
 
 -- ----------------------------
@@ -66,7 +66,7 @@ DROP TABLE IF EXISTS `comment_result_item`;
 CREATE TABLE `comment_result_item` (
   `oid` varchar(32) NOT NULL,
   `score` int(11) DEFAULT NULL,
-  `comment` varchar(128) DEFAULT NULL COMMENT '评价内容',
+  `comment` text COMMENT '评价内容',
   `result_id` varchar(32) NOT NULL COMMENT '所属评价结果',
   `commenter_id` varchar(32) DEFAULT NULL COMMENT '评价人id',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评价时间',
