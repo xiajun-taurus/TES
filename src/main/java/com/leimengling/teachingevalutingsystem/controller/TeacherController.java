@@ -96,6 +96,10 @@ public class TeacherController {
     user.setTrueName(userName);
     user.setSchoolNo(schoolNo);
     user.setUserName(schoolNo);
+    if (userService.reduplicateUser(schoolNo)) {
+      modelMap.put("errMsg","学号/工号重复，换一个试试");
+      return modelMap;
+    }
     int i = userService.addUser(user);
     if (i > 0) {
       Teacher teacher = new Teacher();

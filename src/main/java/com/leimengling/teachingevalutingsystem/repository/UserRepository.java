@@ -19,6 +19,12 @@ public interface UserRepository{
   User findByUserName(String userName);
 
   /**
+   * 根据学工号查询用户
+   */
+  @Select("select * from user where school_no = #{schoolNo}")
+  User findByShchoolNo(String schoolNo);
+
+  /**
    * 插入一条用户信息
    * @param user
    * @return 受影响行数

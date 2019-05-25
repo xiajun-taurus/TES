@@ -12,45 +12,52 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @Autowired
-  public UserServiceImpl(
-      UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    @Autowired
+    public UserServiceImpl(
+            UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  @Override
-  public User findUser(String userName) {
+    @Override
+    public User findUser(String userName) {
 
-    return userRepository.findByUserName(userName);
-  }
+        return userRepository.findByUserName(userName);
+    }
 
-  @Override
-  public int addUser(User user) {
-    return userRepository.insertUser(user);
-  }
+    @Override
+    public int addUser(User user) {
+        return userRepository.insertUser(user);
+    }
 
-  //根据id更新密码
-  @Override
-  public int updatePassword(String id,String newPassword) {
-    User user = new User();
-    user.setOid(id);
-    user.setPassword(newPassword);
-    return userRepository.updateUser(user);
-  }
+    //根据id更新密码
+    @Override
+    public int updatePassword(String id, String newPassword) {
+        User user = new User();
+        user.setOid(id);
+        user.setPassword(newPassword);
+        return userRepository.updateUser(user);
+    }
 
-  public int updateUserSecurityQuestion(String question, String answer, String oid) {
-    return userRepository.updateUserSecurityQuestion(question,answer,oid);
-  }
-  @Override
-  public User findUserById(String oid) {
-    return userRepository.findUserById(oid);
-  }
+    @Override
+    public int updateUserSecurityQuestion(String question, String answer, String oid) {
+        return userRepository.updateUserSecurityQuestion(question, answer, oid);
+    }
 
-  @Override
-  public int updateUser(User user) {
-    return userRepository.updateUser(user);
-  }
+    @Override
+    public User findUserById(String oid) {
+        return userRepository.findUserById(oid);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userRepository.updateUser(user);
+    }
+
+    @Override
+    public boolean reduplicateUser(String schoolNo) {
+        return userRepository.findByShchoolNo(schoolNo) != null;
+    }
 }

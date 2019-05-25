@@ -47,4 +47,11 @@ public interface UserService {
    * @return 受影响行数
    */
   int updateUserSecurityQuestion(String question,String answer,String oid);
+
+  /**
+   * 根据学号查询是否有重复用户
+   * @param schoolNo 学工号
+   * @return
+   */
+  boolean reduplicateUser(String schoolNo);
 }

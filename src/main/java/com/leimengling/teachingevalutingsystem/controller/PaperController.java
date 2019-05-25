@@ -113,6 +113,7 @@ public class PaperController {
     model.addAttribute("paperTitle", paperById.getPaperTitle());
     model.addAttribute("questions", questionList);
     model.addAttribute("resultId", resultId);
+    model.addAttribute("size",questionList.size());
     return "paper";
   }
 

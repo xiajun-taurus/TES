@@ -200,25 +200,25 @@
                     <div class="radio">
 
                       <input type="radio" th:name="${question.oid}"
-                             th:text="${question.answerA}" th:value="${question.scoreA}">
+                             th:text="${question.answerA}" th:value="${question.scoreA}" required>
                     </div>
                     <div class="radio">
 
                       <input type="radio" th:name="${question.oid}"
-                             th:text="${question.answerB}" th:value="${question.scoreB}">
-
-                    </div>
-                    <div class="radio">
-
-                      <input type="radio" th:name="${question.oid}"
-                             th:text="${question.answerC}" th:value="${question.scoreC}">
-
+                             th:text="${question.answerB}" th:value="${question.scoreB}" required>
 
                     </div>
                     <div class="radio">
 
                       <input type="radio" th:name="${question.oid}"
-                             th:text="${question.answerD}" th:value="${question.scoreD}">
+                             th:text="${question.answerC}" th:value="${question.scoreC}" required>
+
+
+                    </div>
+                    <div class="radio">
+
+                      <input type="radio" th:name="${question.oid}"
+                             th:text="${question.answerD}" th:value="${question.scoreD}" required>
 
                     </div>
                   </div>
@@ -266,7 +266,7 @@
                 <div class="form-group">
                   <div class="col-lg-offset-2 col-lg-10">
                     <a class="btn btn-info" th:data-result="${resultId}" id="save">保存</a>
-                    <button class="btn btn-default" type="button">取消</button>
+                    <button class="btn btn-default" type="reset">取消</button>
                   </div>
                 </div>
               </form>
@@ -309,34 +309,51 @@
   $(document).ready(function () {
     $('#save').click(function () {
       var checkedvalue = 0;
+      var completed = true
+      var checkedCount = $('input:radio:checked').length;
+      var questionCount = [[${size}]]
+      if (checkedCount !== questionCount){
+        alert("别着急，还有选择题没做完～，一共"+questionCount+"道，你做了"+checkedCount+"道")
+        completed = false
+      }
+      $('textarea').each(function () {
+        if (!$(this).val().length>0) {
+          completed =false
+        }
+      })
       $('input:radio:checked').each(function () {
         checkedvalue += Number.parseInt($(this).val());
       });
       var comment = $('#comment1').val()+ '。'+$('#comment2').val()+'。'+$('#comment3').val()+'。'+$('#comment4').val()+'。'+$('#comment5').val()+'。'
-      $.ajax({
-        url: "/comment",
-        type: "post",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify({
-          score: checkedvalue,
-          comment: comment,
-          resultId:$('a.btn-info').data('result')
-        }),
-        success: function (data) {
-          if (data.success) {
-            alert("评价成功");
-            console.log(comment);
-            window.location = document.referrer;
-          } else {
-            alert("评价失败");
+      if (completed){
+        $.ajax({
+          url: "/comment",
+          type: "post",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({
+            score: checkedvalue,
+            comment: comment,
+            resultId:$('a.btn-info').data('result')
+          }),
+          success: function (data) {
+            if (data.success) {
+              alert("评价成功");
+              console.log(comment);
+              window.location = document.referrer;
+            } else {
+              alert("评价失败");
+            }
+          },
+          error: function () {
+            alert("ajax请求错误")
           }
-        },
-        error: function () {
-          alert("ajax请求错误")
-        }
 
-      });
+        });
+      } else {
+        alert("题还没做完，先别慌～")
+      }
+
     });
   });
 </script>

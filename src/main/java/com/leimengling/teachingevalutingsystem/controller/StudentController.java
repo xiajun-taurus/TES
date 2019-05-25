@@ -4,10 +4,7 @@ import com.leimengling.teachingevalutingsystem.VO.CommentVO;
 import com.leimengling.teachingevalutingsystem.VO.StudentVO;
 import com.leimengling.teachingevalutingsystem.domain.Student;
 import com.leimengling.teachingevalutingsystem.domain.User;
-import com.leimengling.teachingevalutingsystem.service.ClassInfoService;
-import com.leimengling.teachingevalutingsystem.service.CommentService;
-import com.leimengling.teachingevalutingsystem.service.MajorService;
-import com.leimengling.teachingevalutingsystem.service.StudentService;
+import com.leimengling.teachingevalutingsystem.service.*;
 import com.leimengling.teachingevalutingsystem.service.impl.StudentServiceImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +32,8 @@ public class StudentController {
   private MajorService majorService;
   @Autowired
   private ClassInfoService classInfoService;
+  @Autowired
+  private UserService userService;
 
   /**
    * 新增学生
@@ -44,6 +43,10 @@ public class StudentController {
   public Map addStudent(@RequestBody StudentVO studentVO) {
 
     HashMap<String, Object> modelMap = new HashMap<>();
+    if (userService.reduplicateUser(studentVO.getSchoolNo())) {
+      modelMap.put("errMsg","学号/工号重复，换一个试试");
+      return modelMap;
+    }
     int i = studentService.addStudent(studentVO);
     if (i > 0) {
       modelMap.put("success", true);
