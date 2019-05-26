@@ -213,7 +213,7 @@
                             <div class="panel panel-primary">
                               <div class="panel-body">
                                 <form class="form-horizontal" th:action="updatePassword"
-                                      th:method="post" role="form">
+                                      th:method="post" role="form" onsubmit="return validatep()">
                                   <div class="form-group">
                                     <label class="col-lg-2 control-label">当前密码</label>
                                     <div class="col-lg-6">
@@ -233,7 +233,7 @@
                                     <label class="col-lg-2 control-label">确认新密码</label>
                                     <div class="col-lg-6">
                                       <input type="password" class="form-control" id="rt-pwd"
-                                             th:onblur="validate()" placeholder=" ">
+                                             th:onblur="validatep()" placeholder=" ">
                                     </div>
                                   </div>
                                   <div id="msg" style="display: none">
@@ -264,8 +264,8 @@
                             <div class="panel panel-primary">
                               <div class="panel-body">
 
-                                <form class="form-horizontal" th:action="updatePassword"
-                                      th:method="post" role="form">
+                                <form class="form-horizontal"
+                                      th:method="post" role="form" onsubmit="return false">
                                   <div class="form-group">
                                     <label class="col-lg-2 control-label">密保问题</label>
                                     <div class="col-lg-6">
@@ -334,13 +334,16 @@
 
 <script>
 
-  function validate() {
+  function validatep() {
 
     var pwd = $("#n-pwd").val();
     var pwd1 = $("#rt-pwd").val();
     <!-- 对比两次输入的密码 -->
     if (pwd != pwd1) {
       $("#msg").show();
+      return false
+    }else {
+      return true
     }
   }
 </script>
