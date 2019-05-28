@@ -86,7 +86,13 @@ public class CommentServiceImpl implements CommentService {
       data.setCount(i);
       //调用textRank算法的方法，进行取词
       TextRankKeyword textRankKeyword = new TextRankKeyword();
-      List<String> keyword = textRankKeyword.getKeyword(result.getComment());
+      String comment = result.getComment();
+
+      List<String> keyword = new ArrayList<>();
+      //
+      if (comment != null) {
+        keyword = textRankKeyword.getKeyword(comment);
+      }
       data.setKeyWords(keyword);
       datas.add(data);
     });

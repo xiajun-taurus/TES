@@ -9,4 +9,6 @@ import java.util.List;
 public interface XuankeService {
   int addXuankeInfo(XuanKe xuanKe);
   List<? extends XuanKe> findAllXuanKeInfo();
+
+  int delXuankeInfo(String id);
 }

@@ -2,10 +2,8 @@ package com.leimengling.teachingevalutingsystem.repository;
 
 import com.leimengling.teachingevalutingsystem.domain.XuanKe;
 import java.util.List;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
+
+import org.apache.ibatis.annotations.*;
 
 /**
  * Created by Lei MengLing.
@@ -36,4 +34,10 @@ public interface XuanKeRepository {
    */
   @Select("select * from xuanke")
   List<XuanKe> findAllXuankeInfo();
+
+  /**
+   * 删除一条选课信息
+   */
+  @Delete("delete from `teaching_evaluting_system`.`xuanke` where `oid`=#{id} ")
+  int deleteXuankeInfo(String id);
 }

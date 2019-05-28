@@ -32,6 +32,12 @@ public class XuankeServiceImpl implements XuankeService {
   }
 
   @Override
+  public int delXuankeInfo(String id) {
+
+    return xuanKeRepository.deleteXuankeInfo(id);
+  }
+
+  @Override
   public List<? extends XuanKe> findAllXuanKeInfo() {
     //创建内部类，继承并新增班级名称和课程名称
     @lombok.Data
