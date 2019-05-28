@@ -13,6 +13,7 @@ import com.leimengling.teachingevalutingsystem.repository.UserRepository;
 import com.leimengling.teachingevalutingsystem.service.TeacherService;
 import com.leimengling.teachingevalutingsystem.utils.ClassUtils;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class TeacherServiceImpl implements TeacherService {
       commentResult.setTeacherId(teacherId);
 //      初始化平均分
       commentResult.setAverScore((float) 0);
+      commentResult.setCreateTime(new Date());
 //      将result放入数据库，后期评教的时候直接对此result进行更新
       int insertCommentResult = commentResultRepository.insertCommentResult(commentResult);
       if (insertCommentResult > 0) {
