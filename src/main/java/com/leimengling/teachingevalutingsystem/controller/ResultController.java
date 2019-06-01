@@ -2,14 +2,18 @@ package com.leimengling.teachingevalutingsystem.controller;
 
 import com.leimengling.teachingevalutingsystem.domain.ChartsData;
 import com.leimengling.teachingevalutingsystem.domain.Student;
+import com.leimengling.teachingevalutingsystem.domain.User;
 import com.leimengling.teachingevalutingsystem.service.CommentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Lei MengLing. 评教结果
@@ -26,8 +30,15 @@ public class ResultController {
    * @return
    */
   @RequestMapping("get_result")
-  public String getResult(ModelMap modelMap) {
-    modelMap.addAttribute("results", commentService.findAllResults());
+  public String getResult(ModelMap modelMap, HttpSession session) {
+    User user = (User) session.getAttribute("userInfo");
+    Integer role = user.getRole();
+    String oid = user.getOid();
+    if (role == 0){
+      modelMap.addAttribute("results", commentService.findAllResults(null));
+    }else {
+      modelMap.addAttribute("results", commentService.findAllResults(oid));
+    }
     return "list_result";
   }
 

@@ -24,7 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Lei MengLing.
@@ -53,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
   获取评论结果
    */
   @Override
-  public List<? extends CommentResult> findAllResults() {
+  public List<? extends CommentResult> findAllResults(String id) {
     //内部类，新增教师姓名，问卷名称、评价人数、格式化时间、关键词
     @lombok.Data
     class Data extends CommentResult {
@@ -65,7 +69,12 @@ public class CommentServiceImpl implements CommentService {
       private List<String> keyWords;//关键词
     }
     //获取所有结果
-    List<CommentResult> allResults = resultRepository.findAllResults();
+    List<CommentResult> allResults = new ArrayList<>();
+    if (id != null) {
+      allResults = resultRepository.findAllResults(id);
+    }else {
+      allResults = resultRepository.findAllResultsByAdmin();
+    }
     ArrayList<Data> datas = new ArrayList<>();
     //对于每一条记录，查询出对应的教师姓名，问卷名称，评价人数，放到内部类。再把评论使用textrank分成关键词，把时间格式化
     allResults.forEach(result -> {
@@ -223,7 +232,7 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<ChartsData> getResultCharts() {
     //1.获取所有评价结果
-    List<CommentResult> allResults = resultRepository.findAllResults();
+    List<CommentResult> allResults = resultRepository.findAllResultsByAdmin();
     //2.创建ChartsData的List
     ArrayList<ChartsData> chartsDatas = new ArrayList<>();
     for (CommentResult result : allResults) {

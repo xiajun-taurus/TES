@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CommentService {
   int addComment(CommentVO commentVO,String userId);
-  List<? extends CommentResult> findAllResults();
+  List<? extends CommentResult> findAllResults(String id);
   List<ChartsData> getResultCharts();
   List<? extends Student> getUncommented(String oid);
   String getResultTitle(String oid);

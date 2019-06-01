@@ -29,7 +29,15 @@ public interface CommentResultRepository {
    * @return 评教结果信息列表
    */
   @Select("select * from comment_result")
-  List<CommentResult> findAllResults();
+  List<CommentResult> findAllResultsByAdmin();
+
+
+  /**
+   * 查询对应教师所有评教结果信息
+   * @return 评教结果信息列表
+   */
+  @Select("select * from comment_result where teacher_id = #{id}")
+  List<CommentResult> findAllResults(String id);
 
   /**
    * 更新评教结果

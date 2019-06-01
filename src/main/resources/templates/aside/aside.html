@@ -1,0 +1,221 @@
+
+<!--<div id="sidebar" class="nav-collapse ">-->
+<!--    &lt;!&ndash; sidebar menu start&ndash;&gt;-->
+<!--    <ul class="sidebar-menu">-->
+<!--        <li class="active">-->
+<!--            <a class="" th:href="@{~/home}">-->
+<!--                <i class="icon-user"></i>-->
+<!--                <span>个人中心</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="sub-menu">-->
+<!--            <a href="javascript:;" class="">-->
+<!--                <i class="icon-cogs"></i>-->
+<!--                <span>个人设置</span>-->
+<!--                <span class="arrow"></span>-->
+<!--            </a>-->
+<!--            <ul class="sub">-->
+<!--                <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>-->
+<!--                <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_teacher}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>教师信息管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_major}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>专业信息管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_class}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>班级信息管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_student}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>学生信息管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_course}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>课程管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/list_xuanke}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>选课管理</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="sub-menu">-->
+<!--            <a class="" href="javascript:void(0)">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>题库管理</span>-->
+<!--            </a>-->
+<!--            <ul class="sub">-->
+<!--                <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>-->
+<!--                <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/get_result}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>评教结果查看</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/result_charts}">-->
+<!--                <i class="icon-check"></i>-->
+<!--                <span>统计分析</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" th:href="@{~/login}">-->
+<!--                <i class="icon-signout"></i>-->
+<!--                <span>退出系统</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    &lt;!&ndash; sidebar menu end&ndash;&gt;-->
+<!--</div>-->
+
+<aside th:if="${session.userInfo.role} eq 0">
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            <li>
+                <a class="" th:href="@{~/home}">
+                    <i class="icon-user"></i>
+                    <span>个人中心</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon-cogs"></i>
+                    <span>个人设置</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+                    <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_teacher}">
+                    <i class="icon-check"></i>
+                    <span>教师信息管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_major}">
+                    <i class="icon-check"></i>
+                    <span>专业信息管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_class}">
+                    <i class="icon-check"></i>
+                    <span>班级信息管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_student}">
+                    <i class="icon-check"></i>
+                    <span>学生信息管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_course}">
+                    <i class="icon-check"></i>
+                    <span>课程管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/list_xuanke}">
+                    <i class="icon-check"></i>
+                    <span>选课管理</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a class="" href="javascript:void(0)">
+                    <i class="icon-check"></i>
+                    <span>题库管理</span>
+                </a>
+                <ul class="sub">
+                    <li class=""><a class="" th:href="@{~/list_question}">问题管理</a></li>
+                    <li><a class="" th:href="@{~/list_paper}">问卷管理</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a class="" th:href="@{~/get_result}">
+                    <i class="icon-check"></i>
+                    <span>评教结果查看</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/result_charts}">
+                    <i class="icon-check"></i>
+                    <span>统计分析</span>
+                </a>
+            </li>
+            <li>
+                <a class="" th:href="@{~/login}">
+                    <i class="icon-signout"></i>
+                    <span>退出系统</span>
+                </a>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<aside th:if="${session.userInfo.role} ne 0">
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            <li >
+                <a class="" th:href="@{/home}">
+                    <i class="icon-user"></i>
+                    <span>个人中心</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:void(0);" class="">
+                    <i class="icon-cogs"></i>
+                    <span>个人设置</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" th:href="@{~/profile-edit}">编辑个人资料</a></li>
+                    <li><a class="" th:href="@{~/security-edit}">安全设置</a></li>
+                </ul>
+            </li>
+            <li th:if="${session.userInfo.role} eq 2">
+                <a class="" th:href="@{~/reading_papers}">
+                    <i class="icon-check"></i>
+                    <span>教师评教</span>
+                </a>
+            </li>
+            <li class="active" th:if="${session.userInfo.role} eq 1">
+                <a class="" th:href="@{~/get_result}">
+                    <i class="icon-check"></i>
+                    <span>评教结果查看</span>
+                </a>
+            </li>
+            <li>
+                <a class="" href="/login">
+                    <i class="icon-signout"></i>
+                    <span>退出系统</span>
+                </a>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>

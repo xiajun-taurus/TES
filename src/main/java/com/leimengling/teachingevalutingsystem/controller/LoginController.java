@@ -84,7 +84,7 @@ public class LoginController {
   /**
    * 登录页面，同时清除seesion中存放的用户信息
    */
-  @RequestMapping(value = "login", method = RequestMethod.GET)
+  @RequestMapping(value = {"/","login"}, method = RequestMethod.GET)
   public String Login(HttpSession session) {
     session.removeAttribute("userInfo");
     if (session.getAttribute("userInfo") == null) {
